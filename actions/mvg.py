@@ -71,5 +71,5 @@ def handle_route(start, destination):
         return json.dumps({"error": "could not calculate travel time for those stations!"})
 
 # Test
-result = handle_route("Holzapfelkreuth", "Holzapfelkreuth")
-print(result)
+# result = handle_route("Holzapfelkreuth", "Holzapfelkreuth")
+# print(result)
