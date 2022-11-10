@@ -48,3 +48,8 @@ stories:
   steps:
   - intent: bot_challenge_name
   - action: action_get_name
+
+- story: Ask for travel time between two MVG stations
+  steps:
+  - intent: ask_travel_time
+  - action: action_get_travel_time

@@ -11,13 +11,17 @@ intents:
   - bot_challenge
   - my_name_is
   - bot_challenge_name
+  - ask_travel_time
   
 actions:
   - action_store_name
   - action_get_name
+  - action_get_travel_time
 
 entities:
   - username
+  - from_station
+  - to_station
 
 slots:
   username:
@@ -26,6 +30,18 @@ slots:
     mappings:
     - type: from_entity
       entity: username
+  from_station:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: from_station
+  to_station:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: to_station
 
 responses:
   utter_greet:
