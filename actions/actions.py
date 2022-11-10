@@ -14,8 +14,13 @@ from pyparsing import nestedExpr
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
-from . import mvg
-import json
+MVG_STATIONS = [
+    {
+        "from": "Hochschule Muenchen",
+        "to": "Olympiazentrum",
+        "time_needed": 21.0
+    }
+]
 
 # NOTE(Michael): We could use this action to store the name in
 #                the TrackerStore (in memory database) or a persitent DB
@@ -53,17 +58,16 @@ class ActionMVG(Action):
          return "action_get_travel_time"
 
      def run(self, dispatcher, tracker, domain):
+        print("LOG MVG Action: Run method called.")
         from_station = tracker.get_slot("from_station")
         to_station = tracker.get_slot("to_station")
-        if not from_station or not to_station :
+        if not from_station or not to_station :        
             dispatcher.utter_message("Diese Stationen habe ich nicht erkannt!")
         else:
-            result = json.loads(mvg.handle_route(from_station, to_station))
-            print(result)
-            if "error" in result:
-                dispatcher.utter_message(result["error"])
-            else:
-                dispatcher.utter_message("Du brauchst exakt: {} Minuten. Gute Reise!".format(result["time_needed"]))
-
+            station = MVG_STATIONS[0]
+            print("LOG MVG Action: ", station)
+            if from_station == station["from"] and to_station == station["to"]:
+                dispatcher.utter_message("Du brauchst exakt {} Minuten. Gute Reise!".format(station["time_needed"]))
+            
         return []
 
