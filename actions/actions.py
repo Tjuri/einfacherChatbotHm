@@ -61,6 +61,7 @@ class ActionMVG(Action):
             result = json.loads(mvg.handle_route(from_station, to_station))
             print(result)
             if "error" in result:
+                print("FEHLER!!!!!!!!!!!!")
                 dispatcher.utter_message("Sorry! Ich habe da mindestens eine Station nicht erkannt!")
             else:
                 origin = result["from"]
