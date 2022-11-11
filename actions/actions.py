@@ -63,7 +63,10 @@ class ActionMVG(Action):
             if "error" in result:
                 dispatcher.utter_message("Sorry! Ich habe da mindestens eine Station nicht erkannt!")
             else:
-                dispatcher.utter_message("Du brauchst exakt: {} Minuten. Gute Reise!".format(result["time_needed"]))
+                origin = result["from"]
+                destination = result["to"]
+                time_needed = result["time_needed"]
+                dispatcher.utter_message("Du brauchst exakt: {} Minuten von {} nach {}. Gute Reise!".format(time_needed, origin, destination))
 
         return []
 
