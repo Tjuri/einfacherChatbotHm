@@ -14,7 +14,7 @@ from pyparsing import nestedExpr
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
-from . import mvg
+from . import mvg_nojson
 import json
 
 # NOTE(Michael): We could use this action to store the name in
@@ -58,7 +58,7 @@ class ActionMVG(Action):
         if not from_station or not to_station :
             dispatcher.utter_message("Diese Stationen habe ich nicht erkannt!")
         else:
-            result = json.loads(mvg.handle_route(from_station, to_station))
+            result = mvg_nojson.handle_route(from_station, to_station)
             print(result)
             if "error" in result:
                 print("FEHLER!!!!!!!!!!!!")
