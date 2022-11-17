@@ -59,9 +59,7 @@ class ActionMVG(Action):
             dispatcher.utter_message("Diese Stationen habe ich nicht erkannt!")
         else:
             result = mvg_nojson.handle_route(from_station, to_station)
-            print(result)
             if "error" in result:
-                print("FEHLER!!!!!!!!!!!!")
                 dispatcher.utter_message("Sorry! Ich habe da mindestens eine Station nicht erkannt!")
             else:
                 origin = result["from"]
