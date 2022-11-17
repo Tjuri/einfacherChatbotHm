@@ -17,6 +17,7 @@ actions:
   - action_store_name
   - action_get_name
   - action_get_travel_time
+  - action_cool_follow_up_action
 
 entities:
   - username

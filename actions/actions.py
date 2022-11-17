@@ -12,6 +12,7 @@ from typing import Any, Text, Dict, List
 from pyparsing import nestedExpr
 
 from rasa_sdk import Action, Tracker
+from rasa_sdk import events
 from rasa_sdk.executor import CollectingDispatcher
 
 from . import mvg_nojson
@@ -67,5 +68,13 @@ class ActionMVG(Action):
                 time_needed = result["time_needed"]
                 dispatcher.utter_message("Du brauchst exakt: {} Minuten von {} nach {}. Gute Reise!".format(time_needed, origin, destination))
 
-        return []
+        return [events.FollowupAction("action_cool_follow_up_action")]
 
+class MyCoolFollowUpAction(Action):
+    def name(self):
+        return "action_cool_follow_up_action"
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message("Hallo von meiner coolen follow-up-action")
+
+        return []
