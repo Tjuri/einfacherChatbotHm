@@ -23,7 +23,7 @@ import json
 #                to identify the user by id eg. (user_id, slotvalue)
 class ActionStoreUserName(Action):
 
-     def name(self) -> Text:
+     def name(self):
          return "action_store_name"
          
      def run(self, dispatcher, tracker, domain):
@@ -35,7 +35,7 @@ class ActionStoreUserName(Action):
 
 class ActionUserName(Action):
 
-     def name(self) -> Text:
+     def name(self):
          return "action_get_name"
 
      def run(self, dispatcher, tracker, domain):
@@ -49,7 +49,7 @@ class ActionUserName(Action):
 
 class ActionMVG(Action):
 
-     def name(self) -> Text:
+     def name(self):
          return "action_get_travel_time"
 
      def run(self, dispatcher, tracker, domain):
