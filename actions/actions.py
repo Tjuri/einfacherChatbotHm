@@ -7,12 +7,15 @@
 
 # This is a simple example for a custom action which utters "Hello World!"
 
+from sys import displayhook
 from typing import Any, Text, Dict, List
 from pyparsing import nestedExpr
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
+from . import mvg_nojson
+import json
 
 # NOTE(Michael): We could use this action to store the name in
 #                the TrackerStore (in memory database) or a persitent DB
@@ -20,7 +23,7 @@ from rasa_sdk.executor import CollectingDispatcher
 #                to identify the user by id eg. (user_id, slotvalue)
 class ActionStoreUserName(Action):
 
-     def name(self) -> Text:
+     def name(self):
          return "action_store_name"
          
      def run(self, dispatcher, tracker, domain):
@@ -32,7 +35,7 @@ class ActionStoreUserName(Action):
 
 class ActionUserName(Action):
 
-     def name(self) -> Text:
+     def name(self):
          return "action_get_name"
 
      def run(self, dispatcher, tracker, domain):
@@ -41,6 +44,28 @@ class ActionUserName(Action):
             dispatcher.utter_message(" Du hast mir Deinen Namen nicht gesagt.")
         else:
             dispatcher.utter_message(' Du bist {}'.format(username))
+
+        return []
+
+class ActionMVG(Action):
+
+     def name(self):
+         return "action_get_travel_time"
+
+     def run(self, dispatcher, tracker, domain):
+        from_station = tracker.get_slot("from_station")
+        to_station = tracker.get_slot("to_station")
+        if not from_station or not to_station :
+            dispatcher.utter_message("Diese Stationen habe ich nicht erkannt!")
+        else:
+            result = mvg_nojson.handle_route(from_station, to_station)
+            if "error" in result:
+                dispatcher.utter_message("Sorry! Ich habe da mindestens eine Station nicht erkannt!")
+            else:
+                origin = result["from"]
+                destination = result["to"]
+                time_needed = result["time_needed"]
+                dispatcher.utter_message("Du brauchst exakt: {} Minuten von {} nach {}. Gute Reise!".format(time_needed, origin, destination))
 
         return []
 
