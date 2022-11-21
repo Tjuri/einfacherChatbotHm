@@ -43,3 +43,10 @@ davorstellen, also zB:
 python -m rasa train
 ```
 
+# Note on the frontend:
+This branch uses the frontend from: https://github.com/JiteshGaikwad/Chatbot-Widget
+as it is capable of displaying and playing embedded videos. See the ```utter_annoy_user_with_ad```
+Utterance in ```domain.yml```.
+
+Some links to other frontends in this Rasa Forum Thread: https://forum.rasa.com/t/rasa-3-chatbot-integration-with-website/50193/2
+
