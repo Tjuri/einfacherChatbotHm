@@ -53,3 +53,4 @@ stories:
   steps:
   - intent: ask_travel_time
   - action: action_get_travel_time
+  - action: utter_annoy_user_with_ad

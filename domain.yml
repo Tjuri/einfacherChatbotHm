@@ -71,6 +71,10 @@ responses:
   utter_greet_with_name:
   - text: "Hey, {username}. Alles klar?"
 
+  utter_annoy_user_with_ad:
+  - text: "Hier kommst du zu unserem tollen Werbevideo"
+    attachment: { "type":"video", "payload":{ "title": "MVG Werbung", "src": "https://www.youtube.com/embed/_STSNK69ViE" } }
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
