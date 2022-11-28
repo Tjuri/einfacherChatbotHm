@@ -9,6 +9,31 @@ sudo apt install -y \
     lsb-release \
     apache2
 
+# SET APACHE SOURCE DIR
+#SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+#sudo sh -c "cat >> /etc/apache2/apache2.conf << 'EOL'
+#<Directory ${SCRIPT_DIR}>
+#        Options Indexes FollowSymLinks
+#        AllowOverride None
+#        Require all granted
+#        Allow from all
+#</Directory>
+#EOL"
+
+# COPY WEB-STUFF TO APACHE2 DEFAULT DIR
+sudo cp index.html /var/www/html
+DIR=static
+if [ -d "$DIR" ];
+then
+    echo "$DIR directory exists."
+    sudo cp -r $DIR /var/www/html
+else
+    echo "$DIR directory does not exist."
+fi
+sudo systemctl restart apache2
+
+
+
 # DOWNLOAD AND INSTALL MINICONDA
 echo "------------------------------------"
 echo "Downloading and installing Miniconda"
