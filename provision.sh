@@ -7,7 +7,8 @@ sudo apt install -y \
     curl \
     gnupg \
     lsb-release \
-    apache2
+    apache2 \
+    screen
 
 # SET APACHE SOURCE DIR
 #SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
