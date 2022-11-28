@@ -1,28 +1,43 @@
 #!/bin/sh
 
-# INSTALL DOCKER
-sudo apt-get update
-sudo apt-get install \
+# INSTALL APACHE, TOOLS
+sudo apt update -y
+sudo apt install -y \
     ca-certificates \
     curl \
     gnupg \
-    lsb-release
+    lsb-release \
+    apache2
 
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+# DOWNLOAD AND INSTALL MINICONDA
+echo "------------------------------------"
+echo "Downloading and installing Miniconda"
+echo "------------------------------------"
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+bash ~/miniconda.sh -b -p $HOME/miniconda
+eval "$($HOME/miniconda/bin/conda shell.bash hook)"
+echo "____"
+echo "DONE"
+echo "____"
 
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+conda init
 
-sudo apt-get -y update
+# CREATE RASAENV AND INSTALL RASA
+echo "---------------------------------------"
+echo "Creating virtuale environement for Rasa"
+echo "---------------------------------------"
+conda create -n rasaenv python=3.9
+conda activate rasaenv
+echo "----"
+echo "DONE"
+echo "----"
 
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+echo " "
 
-sudo apt install -y docker-compose
-
-# BUILD ACTION-SERVER IMAGE
-sudo docker build . -t rasa-actions-img
-
-# START RASA SERVER AND ACTION-SERVER
-sudo docker-compose up
+echo "---------------"
+echo "Installing Rasa"
+echo "---------------"
+pip install rasa --no-cache-dir
+echo "----"
+echo "DONE"
+echo "----"
