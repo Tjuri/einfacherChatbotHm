@@ -61,7 +61,7 @@ conda init
 
 # CREATE RASAENV AND INSTALL RASA
 echo "---------------------------------------"
-echo "Creating virtual environement for Rasa"
+echo "Creating virtual environment for Rasa"
 echo "---------------------------------------"
 conda create -n rasaenv python=3.9
 conda activate rasaenv
