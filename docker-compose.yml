@@ -28,12 +28,12 @@ services:
     networks:
     - all
 
-#  web:
-#      image: rasa-frontend:latest
-#      build: "./"
-#      restart: always
-#      ports:
-#        - "80:80"
+  web:
+      image: rasa-frontend:latest
+      build: "./"
+      restart: always
+      ports:
+        - "80:80"
 
 networks:
   all:
